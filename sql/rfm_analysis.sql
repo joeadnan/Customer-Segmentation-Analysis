@@ -1,0 +1,2 @@
+USE customer_segmentation;
+WITH rfm AS (SELECT customer_id,DATEDIFF((SELECT DATE_ADD(MAX(transaction_date),INTERVAL 1 DAY) FROM transactions),MAX(transaction_date)) recency,COUNT(DISTINCT transaction_id) frequency,SUM(revenue) monetary FROM transactions GROUP BY customer_id) SELECT * FROM rfm;
